@@ -17,6 +17,7 @@ func main() {
 		middleware,
 	)
 
+	// yamlの情報を構造化された形で復元
 	swagger, err := router.GetSwagger()
 	if err != nil {
 		log.Fatalf("failed to get swagger spec: %v\n", err)

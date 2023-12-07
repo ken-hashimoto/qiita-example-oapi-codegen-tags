@@ -22,6 +22,7 @@ func NewMiddlewares() Middleware {
 }
 
 func (m middleware) ForbidMySecret(swagger *openapi3.T) func(next http.Handler) http.Handler {
+	// Swagger仕様を基にしたrouterを生成
 	router, err := gorillamux.NewRouter(swagger)
 	if err != nil {
 		panic(err)
@@ -29,12 +30,15 @@ func (m middleware) ForbidMySecret(swagger *openapi3.T) func(next http.Handler) 
 
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			// 受け取ったHTTPリクエストに基づいて、対応するルートを探す
 			route, _, err := router.FindRoute(r)
 			if err != nil {
 				log.Fatal(err)
 				return
 			}
+			// ルートが見つかった場合、そのルートのHTTPメソッドに関連付けられているタグを取得
 			tags := route.PathItem.GetOperation(r.Method).Tags
+			// タグが「OnlyPremium」を含むかどうかを確認
 			isOnlyPremium := slices.Contains(tags, "OnlyPremium")
 			if isOnlyPremium {
 				/*
