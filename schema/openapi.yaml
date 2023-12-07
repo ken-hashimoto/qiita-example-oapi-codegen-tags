@@ -1,0 +1,45 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Example
+  description: 記事用のAPI
+tags:
+  - name: OnlyPremium
+paths:
+  /profile:
+    get:
+      operationId: GetAuthorProfile
+      summary: 私のプロフィール情報を返すAPI（誰でも叩くことができる）
+      tags:
+        - OnlyPremium
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+  /profile/secret:
+    get:
+      operationId: GetAuthorSecretProfile
+      summary: 私の秘密のプロフィール情報を返すAPI（プレミアム会員のみ叩くことができる）
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+components:
+  schemas:
+    Profile:
+      type: object
+      properties:
+        name:
+          type: string
+        self_introduce:
+          type: string
+      required:
+        - name
+        - self_introduce
+
