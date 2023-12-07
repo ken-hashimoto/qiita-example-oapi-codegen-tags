@@ -23,7 +23,7 @@ type ApiHandler struct {
 func (h ApiHandler) GetAuthorProfile(w http.ResponseWriter, r *http.Request) {
 	profile := router.Profile{
 		Name:          "ken",
-		SelfIntroduce: "こんにちは、kenです。音ゲーが好きです。",
+		SelfIntroduce: "こんにちは、kenです。好きなアニメはBANANA FISHです。",
 	}
 	render.JSON(w, r, profile)
 }

@@ -10,8 +10,6 @@ paths:
     get:
       operationId: GetAuthorProfile
       summary: 私のプロフィール情報を返すAPI（誰でも叩くことができる）
-      tags:
-        - OnlyPremium
       responses:
         '200':
           description: OK
@@ -23,6 +21,8 @@ paths:
     get:
       operationId: GetAuthorSecretProfile
       summary: 私の秘密のプロフィール情報を返すAPI（プレミアム会員のみ叩くことができる）
+      tags:
+        - OnlyPremium
       responses:
         '200':
           description: OK
